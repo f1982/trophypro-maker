@@ -26,10 +26,22 @@ export default function Index() {
                 {user ? (
                   <div>
                     <Link
-                      to="/editor"
+                      to="/trophy"
                       className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
                     >
                       Make Your Trophy
+                    </Link>
+                    <Link
+                      to="/hanger"
+                      className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
+                    >
+                      Make Your Hanger
+                    </Link>
+                    <Link
+                      to="/playground"
+                      className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
+                    >
+                      Make Your playground
                     </Link>
                     {/* <p>{user.email}</p> */}
                   </div>
@@ -51,7 +63,7 @@ export default function Index() {
                 )}
               </div>
               <div className="p-8 text-center">
-                <a href="https://boardpro.com">Build for BoardPro</a>
+                <a href="https://andycao.com">Build by Andy</a>
               </div>
             </div>
           </div>

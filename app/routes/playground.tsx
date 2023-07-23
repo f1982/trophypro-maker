@@ -1,7 +1,7 @@
 import { Link } from "@remix-run/react";
 import { useMemo } from "react";
 import LevaConfig from "~/LevaConfig";
-import { nutsBoltsDemo } from "~/components/Common/nuts-bolts";
+import { nutsBoltsDemo } from "~/3d/universal/nuts-bolts";
 import ModelPreview from "~/components/ModelPreview";
 import { saveSTL } from "~/utils/jscad-utils";
 

@@ -2,7 +2,7 @@ import { Link } from "@remix-run/react";
 import { useControls } from "leva";
 import { useMemo } from "react";
 import LevaConfig from "~/LevaConfig";
-import { getHanger, paramConfiguration } from "~/components/Hanger";
+import { getHanger, paramConfiguration } from "~/3d/hanger";
 import ModelPreview from "~/components/ModelPreview";
 import { saveSTL } from "~/utils/jscad-utils";
 

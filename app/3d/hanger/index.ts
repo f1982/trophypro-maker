@@ -1,8 +1,19 @@
 const { TAU } = require("@jscad/modeling").maths.constants;
-import { debounce } from "lodash";
-import { getBase } from "./base";
-import { hdmiSocket, lightningSocket, microUsbSocket, typeCSocket, usbASocket } from "./sockets";
-import { center } from "@jscad/modeling/src/operations/transforms";
+import { debounce, union } from "lodash";
+import { getBase, getWing } from "./base";
+import {
+  hdmiSocket,
+  lightningSocket,
+  microUsbSocket,
+  typeCSocket,
+  usbASocket,
+} from "./sockets";
+import {
+  center,
+  rotate,
+  translate,
+} from "@jscad/modeling/src/operations/transforms";
+import { measureBoundingBox } from "@jscad/modeling/src/measurements";
 
 export interface HangerParams {
   gap: number;
@@ -49,8 +60,23 @@ const getHanger = (params: HangerParams) => {
     ],
   });
 
-  // center({axes:[true, true, true]}, base);
-  return [center({ axes: [true, true, false] }, base)];
+  const baseBbox = measureBoundingBox(base);
+
+  const wingLeft = getWing(9, baseBbox[1][1], 5);
+  const winbBbox = measureBoundingBox(wingLeft);
+
+  const hanger = union([
+    translate(
+      [-winbBbox[1][0], 0, baseBbox[1][2]],
+      rotate([TAU / 2, 0, 0], wingLeft)
+    ),
+    // wingLeft,
+    base,
+  ]);
+
+  return hanger;
+  // // center({axes:[true, true, true]}, base);
+  // return [center({ axes: [true, true, false] }, union([wingLeft, base]))];
 };
 
 export const getHangerDebounce = debounce((params) => getHanger(params), 50);

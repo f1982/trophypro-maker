@@ -1,9 +1,9 @@
 const { TAU } = require("@jscad/modeling").maths.constants;
 import { debounce } from "lodash";
 import { translateZ } from "@jscad/modeling/src/operations/transforms";
-import { getBase } from "./Trophy/trophy-base";
-import { getBody2 } from "./Trophy/trophy-body";
-import { getNeck } from "./Trophy/trophy-neck";
+import { getBase } from "../3d/trophy/trophy-base";
+import { getBody2 } from "../3d/trophy/trophy-body";
+import { getNeck } from "../3d/trophy/trophy-neck";
 
 export interface TrophyParameters {
   name?: string;
