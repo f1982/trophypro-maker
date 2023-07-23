@@ -1,6 +1,8 @@
 const { TAU } = require("@jscad/modeling").maths.constants;
+import { measureAggregateBoundingBox } from "@jscad/modeling/src/measurements";
+import { rotate, translate } from "@jscad/modeling/src/operations/transforms";
 import { debounce, union } from "lodash";
-import { getBase, getWing } from "./base";
+import { getBase, getEar, getScrewHole } from "./base";
 import {
   hdmiSocket,
   lightningSocket,
@@ -8,12 +10,6 @@ import {
   typeCSocket,
   usbASocket,
 } from "./sockets";
-import {
-  center,
-  rotate,
-  translate,
-} from "@jscad/modeling/src/operations/transforms";
-import { measureBoundingBox } from "@jscad/modeling/src/measurements";
 
 export interface HangerParams {
   gap: number;
@@ -45,8 +41,12 @@ export const paramConfiguration = {
   },
 };
 
+// const getHanger = (params: HangerParams) => {
+//   return getEar(10,10,4);
+//   // return getScrewHole(4, 2);
+// };
 const getHanger = (params: HangerParams) => {
-  const base = getBase({
+  const hub = getBase({
     gapBetweenSocket: params.gap,
     marginH: params.marginH,
     marginV: params.marginV,
@@ -59,24 +59,30 @@ const getHanger = (params: HangerParams) => {
       hdmiSocket(),
     ],
   });
-
-  const baseBbox = measureBoundingBox(base);
-
-  const wingLeft = getWing(9, baseBbox[1][1], 5);
-  const winbBbox = measureBoundingBox(wingLeft);
+  const hubBoundingBox = measureAggregateBoundingBox(hub);
+  const hubHeight = -(hubBoundingBox[0][1] - hubBoundingBox[1][1]); //y axis length
+  
+  const earLeft = getEar(9, hubHeight, 4);
+  const earRight = getEar(9, hubHeight, 4);
+  const earBounding = measureAggregateBoundingBox(earLeft);
 
   const hanger = union([
     translate(
-      [-winbBbox[1][0], 0, baseBbox[1][2]],
-      rotate([TAU / 2, 0, 0], wingLeft)
+      [-earBounding[1][0], 0, hubBoundingBox[1][2]],
+      rotate([TAU / 2, 0, 0], earLeft)
     ),
-    // wingLeft,
-    base,
+    translate(
+      [hubBoundingBox[1][0] + earBounding[1][0], 0, hubBoundingBox[1][2]],
+      rotate([TAU / 2, 0, TAU / 2], earRight)
+    ),
+    hub,
   ]);
 
-  return hanger;
-  // // center({axes:[true, true, true]}, base);
-  // return [center({ axes: [true, true, false] }, union([wingLeft, base]))];
+  // the ear is out of 0 of x axis
+  return rotate(
+    [-TAU / 4, 0, 0],
+    translate([-hubBoundingBox[1][0] / 2, 0, 0], hanger)
+  );
 };
 
 export const getHangerDebounce = debounce((params) => getHanger(params), 50);
