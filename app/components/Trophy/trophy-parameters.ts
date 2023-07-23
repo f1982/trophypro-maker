@@ -1,0 +1,68 @@
+export const paramConfiguration = {
+  scale: {
+    label: "Scale",
+    value: 0.3,
+    min: 0.3,
+    max: 1,
+    step: 0.1,
+  },
+  winner: {
+    value: "Winner",
+  },
+  baseWidth: {
+    label: "Trophy base width",
+    value: 50,
+    min: 30,
+    max: 70,
+    step: 1,
+  },
+  baseLength: {
+    label: "Trophy base length",
+    value: 70,
+    min: 50,
+    max: 90,
+    step: 1,
+  },
+  baseHeight: {
+    label: "Trophy base height",
+    value: 20,
+    min: 10,
+    max: 50,
+    step: 1,
+  },
+  neckHeight: {
+    label: "Trophy neck height",
+    value: 30,
+    min: 10,
+    max: 90,
+    step: 2,
+  },
+  neckSize: {
+    label: "Trophy neck size",
+    value: 10,
+    min: 6,
+    max: 20,
+    step: 2,
+  },
+  bodyTopRadius: {
+    label: "Trophy cup top size",
+    value: 30,
+    min: 10,
+    max: 90,
+    step: 1,
+  },
+  bodyBottomRadius: {
+    label: "Trophy cup bottom size",
+    value: 30,
+    min: 10,
+    max: 90,
+    step: 1,
+  },
+  bodyHeight: {
+    label: "Trophy cup height",
+    value: 50,
+    min: 20,
+    max: 90,
+    step: 1,
+  },
+};
