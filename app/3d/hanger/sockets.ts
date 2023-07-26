@@ -10,6 +10,34 @@ export interface SocketItemData {
   name?: string;
 }
 
+export enum SocketEnum {
+  UsbTypeC = "usb-type-c",
+  UsbA = "usb-a",
+  UsbMicro = "usb-micro",
+  Lightning = "lightning",
+  Hdmi = "hdmi",
+}
+
+// const SocketTypes = keyof SocketEnum
+// type SocketName = 'usb-a'|'use-type-c'|'hdmi'|'lightning'|'usb-micro';
+
+export function getSocket(name: SocketEnum): SocketItemData {
+  switch (name) {
+    case SocketEnum.Hdmi:
+      return hdmiSocket();
+    case SocketEnum.UsbTypeC:
+      return typeCSocket();
+    case SocketEnum.UsbA:
+      return usbASocket();
+    case SocketEnum.UsbMicro:
+      return microUsbSocket();
+    case SocketEnum.Lightning:
+      return lightningSocket();
+    default:
+      return usbASocket();
+  }
+}
+
 export function typeCSocket() {
   const height = 2.4;
   const width = 8.3;
@@ -82,7 +110,8 @@ export function hdmiSocket() {
         [0, 0],
         [w, 0],
         [w, s],
-        [w - t1, s],        [w - t2 - t1, h],
+        [w - t1, s],
+        [w - t2 - t1, h],
         [t1 + t2, h],
         [t1, s],
         [0, s],

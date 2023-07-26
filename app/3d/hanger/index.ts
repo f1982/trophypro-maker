@@ -2,14 +2,17 @@ const { TAU } = require("@jscad/modeling").maths.constants;
 import { measureAggregateBoundingBox } from "@jscad/modeling/src/measurements";
 import { rotate, translate } from "@jscad/modeling/src/operations/transforms";
 import { debounce, union } from "lodash";
-import { getBase, getEar, getScrewHole } from "./base";
+import { getBase } from "./base";
 import {
+  SocketEnum,
+  getSocket,
   hdmiSocket,
   lightningSocket,
   microUsbSocket,
   typeCSocket,
   usbASocket,
 } from "./sockets";
+import { getWing } from "./wing";
 
 export interface HangerParams {
   gap: number;
@@ -41,29 +44,27 @@ export const paramConfiguration = {
   },
 };
 
-// const getHanger = (params: HangerParams) => {
-//   return getEar(10,10,4);
-//   // return getScrewHole(4, 2);
-// };
 const getHanger = (params: HangerParams) => {
+  const socketNames = [
+    "hdmi",
+    "lightning",
+    "usb-micro",
+    "usb-a",
+    "hdmi",
+    "usb-a",
+  ];
+  
   const hub = getBase({
     gapBetweenSocket: params.gap,
     marginH: params.marginH,
     marginV: params.marginV,
-    sockets: [
-      typeCSocket(),
-      hdmiSocket(),
-      microUsbSocket(),
-      usbASocket(),
-      lightningSocket(),
-      hdmiSocket(),
-    ],
+    sockets: socketNames.map((item) => getSocket(item as SocketEnum)),
   });
   const hubBoundingBox = measureAggregateBoundingBox(hub);
   const hubHeight = -(hubBoundingBox[0][1] - hubBoundingBox[1][1]); //y axis length
-  
-  const earLeft = getEar(9, hubHeight, 4);
-  const earRight = getEar(9, hubHeight, 4);
+
+  const earLeft = getWing(9, hubHeight, 4);
+  const earRight = getWing(9, hubHeight, 4);
   const earBounding = measureAggregateBoundingBox(earLeft);
 
   const hanger = union([
