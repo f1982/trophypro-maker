@@ -2,11 +2,7 @@ const { TAU } = require("@jscad/modeling").maths.constants;
 
 import { subtract } from "@jscad/modeling/src/operations/booleans";
 import { translate } from "@jscad/modeling/src/operations/transforms";
-import {
-  cuboid,
-  cylinder
-} from "@jscad/modeling/src/primitives";
-import { union } from "lodash";
+import { cuboid } from "@jscad/modeling/src/primitives";
 import { SocketItemData } from "./sockets";
 
 export const getBase = ({

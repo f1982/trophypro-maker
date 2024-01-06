@@ -1,10 +1,7 @@
 const { TAU } = require("@jscad/modeling").maths.constants;
 
 import { subtract } from "@jscad/modeling/src/operations/booleans";
-import {
-  cuboid,
-  cylinder
-} from "@jscad/modeling/src/primitives";
+import { cuboid, cylinder } from "@jscad/modeling/src/primitives";
 import { union } from "lodash";
 
 export const getWing = (w: number, h: number, d: number) => {
@@ -22,7 +19,7 @@ export const getScrewHole = (h: number = 10, r: number = 2) => {
   return union([
     cylinder({
       center: [0, 0, (h - hexHeight) / 2],
-      height: h - hexHeight,
+      height: h - hexHeight + 0.01,
       radius: r,
       segments: 16,
     }),
