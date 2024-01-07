@@ -40,13 +40,13 @@ export const paramConfiguration = {
 const getHanger = (params: HangerParams) => {
   const socketNames = [
     // // "hdmi",
+    "hdmi",
+    "usb-type-c",
+    "usb-type-c",
     "usb-type-c",
     "lightning",
     // "usb-micro",
     // "usb-a",
-    "usb-type-c",
-    "usb-type-c",
-    "hdmi",
     // "usb-a",
   ];
 

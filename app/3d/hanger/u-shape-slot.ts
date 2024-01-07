@@ -39,16 +39,17 @@ export const getUShapeSlot = (
     })
   );
 
+  const screwRadius = 1.4;
+
   return subtract(
     model,
     translate(
       [lw, height / 2, depth / 5],
-      rotate([0, -TAU / 4, 0], getScrewHole(lw, 1))
+      rotate([0, -TAU / 4, 0], getScrewHole(lw, screwRadius))
     ),
     translate(
       [lw, height / 2, (depth / 5) * (5 - 1)],
-      rotate([0, -TAU / 4, 0], getScrewHole(lw, 1))
+      rotate([0, -TAU / 4, 0], getScrewHole(lw, screwRadius))
     )
   );
-  // return model;
 };
